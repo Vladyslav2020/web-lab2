@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@nodeart/eslint-plugin": "^1.4.0",
-    "eslint": "^8.2.0",
+    "eslint": "^7.11.0",
     "eslint-plugin-sonarjs": "^0.10.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
