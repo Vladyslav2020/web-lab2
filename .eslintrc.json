@@ -1,15 +1,48 @@
 {
     "env": {
-        "es6": true
+        "browser": true,
+        "es6": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "react-app",
+        "react-app/jest",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "prettier",
+        "sonarjs",
+        "jest"
+    ],
+    "settings": {
+        "react": {
+            "version": "latest"
+        }
     },
     "rules": {
-        "no-var": "error",
-        "semi": "error",
-        "indent": "error",
-        "no-multi-spaces": "error",
-        "space-in-parens": "error",
-        "no-multiple-empty-lines": "error",
-        "prefer-const": "error",
-        "no-use-before-define": "error"
+        "comma-dangle": "off",
+        "handle-callback-err": "off",
+        "consistent-return": "off",
+        "sonarjs/no-duplicate-string": "off",
+        "react/prop-types": "off",
+        "no-var": "warn",
+        "semi": "warn",
+        "indent": "warn",
+        "no-multi-spaces": "warn",
+        "space-in-parens": "warn",
+        "no-multiple-empty-lines": "warn",
+        "prefer-const": "warn",
+        "no-use-before-define": "warn"
     }
 }

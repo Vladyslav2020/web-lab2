@@ -49,7 +49,7 @@ const SendEmailForm = ({ showLoader, hideLoader }) => {
             return;
         }
         try {
-            let response = await request(
+            const response = await request(
                 'http://localhost:5000/api/send-mail',
                 'POST',
                 {

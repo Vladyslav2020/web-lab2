@@ -9,9 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-let maxCountRequestsPerTime = 2;
-let time = 12000;
-let requestContainer = {};
+const maxCountRequestsPerTime = 2;
+const time = 12000;
+const requestContainer = {};
 
 (async function () {
     try {

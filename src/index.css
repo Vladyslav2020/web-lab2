@@ -3,7 +3,7 @@ body {
   padding: 0;
 }
 
-.nav-item{
+.nav-item {
   cursor: pointer;
 }
 
@@ -13,7 +13,7 @@ body {
   top: 100px;
 }
 
-.message{
+.message {
   position: fixed;
   top: 55px;
   left: 10px;
@@ -21,19 +21,19 @@ body {
   z-index: 100;
 }
 
-.message-enter{
+.message-enter {
   left: -500px;
-  opacity: 0;
+  opacity: 0%;
 }
 
-.message-enter-active{
+.message-enter-active {
   transition: left 200ms linear, opacity 400ms linear;
   left: 10px;
-  opacity: 1;
+  opacity: 100%;
 }
 
-.message-exit-active{
+.message-exit-active {
   transition: left 400ms linear, opacity 200ms linear;
   left: -500px;
-  opacity: 0;
+  opacity: 0%;
 }
