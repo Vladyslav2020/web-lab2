@@ -18,7 +18,7 @@
     },
     "scripts": {
         "start-server": "node ./server/index",
-        "start": "react-scripts start",
+        "start": "concurrently --kill-others \"npm run start-server\" \"react-scripts start\"",
         "build": "react-scripts build",
         "lint": "eslint **/*.js --ignore-path .gitignore",
         "lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
@@ -47,10 +47,11 @@
         ]
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.16.3",
         "@nodeart/eslint-plugin": "^1.4.0",
+        "concurrently": "^6.4.0",
         "eslint": "^7.11.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "@babel/eslint-parser": "^7.16.3",
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
         "prettier": "^2.4.1",

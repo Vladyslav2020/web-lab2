@@ -25,7 +25,7 @@ class MailService {
                 this.mailOptions,
                 function (error, info) {
                     if (error) {
-                        console.log(error);
+                        console.log("Error: ", error);
                         return resolve({
                             status: 'BAD',
                             message: error,

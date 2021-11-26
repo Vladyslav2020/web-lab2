@@ -50,7 +50,7 @@ const SendEmailForm = ({ showLoader, hideLoader }) => {
         }
         try {
             const response = await request(
-                'http://localhost:5000/api/send-mail',
+                'https://afternoon-shore-72034.herokuapp.com/api/send-mail',
                 'POST',
                 {
                     firstName: state.firstName,
