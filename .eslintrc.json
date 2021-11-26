@@ -20,7 +20,6 @@
     },
     "plugins": [
         "react",
-        "sonarjs",
         "jest"
     ],
     "settings": {
