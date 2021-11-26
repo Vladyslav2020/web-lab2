@@ -9,8 +9,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "react-app",
-        "react-app/jest",
-        "plugin:prettier/recommended"
+        "react-app/jest"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -21,7 +20,6 @@
     },
     "plugins": [
         "react",
-        "prettier",
         "sonarjs",
         "jest"
     ],
