@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json({extended: true}));
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -67,7 +68,7 @@ router.post('/send-mail', async (req, res) => {
                 time / requestContainer[req.originalUrl].count,
             );
         }
-        const mailService = new MailService(subject, message);
+        const mailService = new MailService(subject, message, firstName, lastName);
         const response = await mailService.sendMail();
         if (response.status === 'OK') {
             res.status(200).json({ message: response.message });

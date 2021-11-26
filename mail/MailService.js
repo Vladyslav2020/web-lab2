@@ -10,11 +10,11 @@ class MailService {
         },
     });
 
-    constructor(subject, message) {
+    constructor(subject, message, firstName, lastName) {
         this.mailOptions = {
             from: process.env.FROM,
             to: process.env.TO,
-            subject,
+            subject: `Message from ${firstName} ${lastName}. ${subject}`,
             text: message,
         };
     }
