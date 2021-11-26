@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run start-server",
-    "build": "cd client && npm run build",
     "start-server": "node index",
     "start-client": "cd client && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1",
