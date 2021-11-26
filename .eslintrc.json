@@ -8,8 +8,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "react-app",
-        "react-app/jest"
+        "react-app"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -41,5 +40,6 @@
         "no-multiple-empty-lines": "warn",
         "prefer-const": "warn",
         "no-use-before-define": "warn"
-    }
+    },
+    "ignorePatterns": ["./client/build/**/*.js", "**/build/*.js"]
 }

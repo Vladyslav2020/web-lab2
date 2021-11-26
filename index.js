@@ -1,13 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const { MailService } = require('./MailService');
+const { MailService } = require('./mail/MailService');
 require('dotenv').config();
 const router = express.Router();
+const path = require('path');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+}
 
 const maxCountRequestsPerTime = 2;
 const time = 12000;
