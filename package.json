@@ -18,7 +18,7 @@
     },
     "scripts": {
         "start-server": "node ./server/index",
-        "start": "concurrently --kill-others \"npm run start-server\" \"react-scripts start\"",
+        "start": "concurrently --kill-others \"react-scripts start\" \"node ./server/index\"",
         "build": "react-scripts build",
         "lint": "eslint **/*.js --ignore-path .gitignore",
         "lint:fix": "eslint **/*.js --fix --ignore-path .gitignore",
