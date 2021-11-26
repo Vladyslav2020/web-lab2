@@ -36,8 +36,5 @@
     "devDependencies": {
         "@babel/eslint-parser": "^7.16.3",
         "@nodeart/eslint-plugin": "^1.4.0"
-    },
-    "engines": {
-        "node": "14.x"
     }
 }
