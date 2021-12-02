@@ -2,7 +2,8 @@
     "env": {
         "browser": true,
         "es6": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -17,7 +18,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["react", "sonarjs"],
+    "plugins": ["react", "jest", "sonarjs"],
     "settings": {
         "react": {
             "version": "latest"
@@ -37,6 +38,5 @@
         "no-multiple-empty-lines": "warn",
         "prefer-const": "warn",
         "no-use-before-define": "warn"
-    },
-    "ignorePatterns": ["./client/build/**/*.js", "**/build/*.js"]
+    }
 }
