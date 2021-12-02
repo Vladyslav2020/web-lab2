@@ -2,8 +2,7 @@
     "env": {
         "browser": true,
         "es6": true,
-        "es2021": true,
-        "jest": true
+        "es2021": true
     },
     "extends": [
         "eslint:recommended",
@@ -18,7 +17,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["react", "jest", "sonarjs"],
+    "plugins": ["react", "sonarjs"],
     "settings": {
         "react": {
             "version": "latest"
