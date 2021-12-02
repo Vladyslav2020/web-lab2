@@ -1,4 +1,6 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { MailService } = require('./mail/MailService');
 require('dotenv').config();
 
@@ -16,6 +18,18 @@ const returnResponse = (res, status, obj) => {
         'Access-Control-Allow-Headers': 'origin, content-type, accept',
     });
     res.end(JSON.stringify(obj));
+};
+
+const returnStaticFile = (res, filePath) => {
+    fs.readFile(filePath, function (err, data) {
+        if (err) {
+            res.writeHead(404);
+            res.end(JSON.stringify(err));
+            return;
+        }
+        res.writeHead(200);
+        res.end(data);
+    });
 };
 
 const handleRequest = async (req, res, body) => {
@@ -71,11 +85,24 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
         if (req.url === '/api/send-mail' && req.method === 'POST') {
             handleRequest(req, res, body);
-        } else {
+        } else if (req.method !== 'GET') {
             res.statusCode = 400;
             res.end();
         }
     });
+    if (req.method === 'GET') {
+        if (req.url === '/') {
+            returnStaticFile(
+                res,
+                path.join(__dirname, 'client/build', 'index.html'),
+            );
+        } else {
+            returnStaticFile(
+                res,
+                path.join(__dirname, 'client/build', req.url),
+            );
+        }
+    }
     if (req.method === 'OPTIONS') {
         req.statusCode = 200;
         res.setHeader('Access-Control-Allow-Origin', '*');
