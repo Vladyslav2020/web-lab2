@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHttp } from './useHttp';
+import { Config } from './Config';
 
 let needToAddEventListeners = true;
 let needToCheckValidation = false;
-let form;
 
-const SendEmailForm = ({ showLoader, hideLoader }) => {
+const SendEmailForm = ({
+    showLoader,
+    hideLoader,
+    showMessage,
+    hideMessage,
+}) => {
     const [isValid, setIsValid] = useState(true);
     const { loading, request, cleanErrors } = useHttp();
+    const form = useRef(null);
     const [state, setState] = useState({
         firstName: '',
         lastName: '',
@@ -25,8 +31,6 @@ const SendEmailForm = ({ showLoader, hideLoader }) => {
     useEffect(() => {
         if (needToAddEventListeners) {
             needToAddEventListeners = false;
-            form = document.querySelector('.needs-validation');
-            form.addEventListener('change', function (event) {}, false);
         }
     }, []);
 
@@ -34,33 +38,23 @@ const SendEmailForm = ({ showLoader, hideLoader }) => {
         if (!needToCheckValidation) {
             return;
         }
-        if (form.checkValidity()) {
-            setIsValid(true);
-        } else {
-            setIsValid(false);
-        }
+        setIsValid(form.current.checkValidity());
     });
 
     const sendEmail = async event => {
         event.preventDefault();
         needToCheckValidation = true;
-        if (!form.checkValidity()) {
-            form.classList.add('was-validated');
+        if (!form.current.checkValidity()) {
+            form.current.classList.add('was-validated');
             return;
         }
         try {
-            const response = await request(
-                'https://afternoon-shore-72034.herokuapp.com/api/send-mail',
-                'POST',
-                {
-                    firstName: state.firstName,
-                    lastName: state.lastName,
-                    subject: state.subject,
-                    message: state.message,
-                },
-            );
-            alert(response.message);
+            const response = await request(Config.url, 'POST', { ...state });
+            showMessage({ message: response.message, type: 'success' });
+            setTimeout(hideMessage, 3000);
         } catch (err) {
+            showMessage({ message: err.message, type: 'danger' });
+            setTimeout(hideMessage, 3000);
             cleanErrors();
         } finally {
             needToCheckValidation = false;
@@ -68,7 +62,7 @@ const SendEmailForm = ({ showLoader, hideLoader }) => {
     };
     return (
         <div className="container mt-2">
-            <form className="row g-3 needs-validation" noValidate>
+            <form className="row g-3 needs-validation" noValidate ref={form}>
                 <div className="md">
                     <label htmlFor="firstName" className="form-label">
                         First name

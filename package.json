@@ -1,52 +1,54 @@
 {
-  "name": "lab2",
-  "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
-  "scripts": {
-    "start": "npm run start-server",
-    "start-server": "node index",
-    "start-client": "cd client && npm run start",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint **/*.js --ignore-path .eslintignore",
-    "lint:fix": "eslint **/*.js --fix --ignore-path .eslintignore",
-    "format": "prettier --check . --ignore-path ./.prettierignore",
-    "format:fix": "prettier --write . --ignore-path ./.prettierignore",
-    "stylelint": "stylelint **/*.css --ignore-path .gitignore",
-    "stylelint:fix": "stylelint **/*.css --fix --ignore-path .gitignore",
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vladyslav2020/web-lab2.git"
-  },
-  "author": "Vlad",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Vladyslav2020/web-lab2/issues"
-  },
-  "homepage": "https://github.com/Vladyslav2020/web-lab2#readme",
-  "dependencies": {
-    "config": "^3.3.6",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "eslint-plugin-react-app": "^6.2.2",
-    "express": "^4.17.1",
-    "nodemailer": "^6.7.0"
-  },
-  "devDependencies": {
-    "concurrently": "^6.4.0",
-    "eslint": "^7.11.0",
-    "eslint-plugin-jest": "^25.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
-    "prettier": "^2.4.1",
-    "sonarjs": "^1.0.0",
-    "stylelint": "^14.0.1",
-    "stylelint-config-standard": "^23.0.0"
-  },
-  "engines": {
-    "node": "14.x"
-  }
+    "name": "lab2",
+    "version": "1.0.0",
+    "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run start-server",
+        "start-server": "node index",
+        "start-client": "cd client && npm run start",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint **/*.js --ignore-path .eslintignore",
+        "lint:fix": "eslint **/*.js --fix --ignore-path .eslintignore",
+        "format": "prettier --check . --ignore-path ./.prettierignore",
+        "format:fix": "prettier --write . --ignore-path ./.prettierignore",
+        "stylelint": "stylelint **/*.css --ignore-path .eslintignore",
+        "stylelint:fix": "stylelint **/*.css --fix --ignore-path .eslintignore",
+        "prepare": "husky install"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Vladyslav2020/web-lab2.git"
+    },
+    "author": "Vlad",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Vladyslav2020/web-lab2/issues"
+    },
+    "homepage": "https://github.com/Vladyslav2020/web-lab2#readme",
+    "dependencies": {
+        "config": "^3.3.6",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "eslint-plugin-react-app": "^6.2.2",
+        "eslint-plugin-sonarjs": "^0.11.0",
+        "express": "^4.17.1",
+        "nodemailer": "^6.7.0",
+        "sanitize-html": "^2.6.0"
+    },
+    "devDependencies": {
+        "concurrently": "^6.4.0",
+        "eslint": "^7.11.0",
+        "eslint-plugin-jest": "^25.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "husky": "^7.0.4",
+        "lint-staged": "^11.2.6",
+        "prettier": "^2.4.1",
+        "sonarjs": "^1.0.0",
+        "stylelint": "^14.0.1",
+        "stylelint-config-standard": "^23.0.0"
+    },
+    "engines": {
+        "node": "14.x"
+    }
 }

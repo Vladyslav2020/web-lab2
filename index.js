@@ -1,84 +1,92 @@
-const express = require('express');
-const cors = require('cors');
+const http = require('http');
 const { MailService } = require('./mail/MailService');
 require('dotenv').config();
-const router = express.Router();
-const path = require('path');
 
 const PORT = process.env.PORT || 5000;
-const app = express();
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({extended: true}));
-
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
-}
 
 const maxCountRequestsPerTime = 2;
 const time = 12000;
 const requestContainer = {};
+let timer;
 
-(async function () {
-    try {
-        app.listen(PORT, () =>
-            console.log(`Server is started on PORT ${PORT}`),
-        );
-        app.use('/api', router);
-    } catch (err) {
-        console.log('Server error ' + err.message);
-        process.exit(1);
-    }
-})();
+const returnResponse = (res, status, obj) => {
+    res.writeHead(status, {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'origin, content-type, accept',
+    });
+    res.end(JSON.stringify(obj));
+};
 
-router.post('/send-mail', async (req, res) => {
+const handleRequest = async (req, res, body) => {
     try {
-        const { firstName, lastName, subject, message } = req.body;
-        if (!requestContainer[req.originalUrl]) {
-            requestContainer[req.originalUrl] = {
+        const { firstName, lastName, subject, message } = JSON.parse(body);
+        const ip =
+            req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
+        if (!timer) {
+            timer = setTimeout(() => {
+                Object.values(requestContainer).forEach(
+                    item => (item.count = 0),
+                );
+                clearInterval(timer);
+            }, time);
+        }
+        if (!requestContainer[ip]) {
+            requestContainer[ip] = {
                 count: 1,
-                timer: setTimeout(() => {
-                    requestContainer[req.originalUrl].count = 0;
-                    clearInterval(this.timer);
-                    requestContainer[req.originalUrl].timer = null;
-                }, time),
             };
         } else {
-            if (
-                requestContainer[req.originalUrl].count + 1 >
-                maxCountRequestsPerTime
-            ) {
-                res.status(429).json({ message: 'Too many requests!!!' });
-                return;
-            }
-            requestContainer[req.originalUrl].count++;
-            if (!requestContainer[req.originalUrl].timer) {
-                requestContainer[req.originalUrl].timer = setTimeout(() => {
-                    requestContainer[req.originalUrl].count = 0;
-                    clearInterval(requestContainer[req.originalUrl].timer);
-                    requestContainer[req.originalUrl].timer = null;
-                }, time);
-            }
-            requestContainer[req.originalUrl].timer = setTimeout(
-                () => requestContainer[req.originalUrl].count,
-                time / requestContainer[req.originalUrl].count,
-            );
+            requestContainer[ip].count++;
         }
-        const mailService = new MailService(subject, message, firstName, lastName);
+        if (requestContainer[ip].count > maxCountRequestsPerTime) {
+            returnResponse(res, 429, { message: 'Too many requests!!!' });
+            return;
+        }
+        const mailService = new MailService(
+            subject,
+            message,
+            firstName,
+            lastName,
+        );
         const response = await mailService.sendMail();
         if (response.status === 'OK') {
-            res.status(200).json({ message: response.message });
+            returnResponse(res, 200, { message: response.message });
         } else {
-            res.status(400).json({ message: response.message });
+            returnResponse(res, 400, { message: response.message });
         }
     } catch (err) {
-        res.status(500).json({
+        returnResponse(res, 500, {
             message: 'Something is wrong, please try again',
         });
         console.log('Server was crashed:', err.message);
     }
+};
+
+const server = http.createServer((req, res) => {
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString();
+    });
+
+    req.on('end', () => {
+        if (req.url === '/api/send-mail' && req.method === 'POST') {
+            handleRequest(req, res, body);
+        } else {
+            res.statusCode = 400;
+            res.end();
+        }
+    });
+    if (req.method === 'OPTIONS') {
+        req.statusCode = 200;
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader(
+            'Access-Control-Allow-Headers',
+            'origin, content-type, accept',
+        );
+        res.end();
+    }
+});
+
+server.listen(PORT, () => {
+    console.log(`Server is started on PORT ${PORT}`);
 });

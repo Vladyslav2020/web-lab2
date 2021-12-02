@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const sanitizeHtml = require('sanitize-html');
 
 class MailService {
     static transporter = nodemailer.createTransport({
@@ -11,6 +12,10 @@ class MailService {
     });
 
     constructor(subject, message, firstName, lastName) {
+        subject = sanitizeHtml(subject);
+        message = sanitizeHtml(message);
+        firstName = sanitizeHtml(firstName);
+        lastName = sanitizeHtml(lastName);
         this.mailOptions = {
             from: process.env.FROM,
             to: process.env.TO,
@@ -25,7 +30,7 @@ class MailService {
                 this.mailOptions,
                 function (error, info) {
                     if (error) {
-                        console.log("Error: ", error);
+                        console.log('Error: ', error);
                         return resolve({
                             status: 'BAD',
                             message: error,

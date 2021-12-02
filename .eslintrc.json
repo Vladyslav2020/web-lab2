@@ -7,6 +7,7 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:sonarjs/recommended",
         "plugin:react/recommended",
         "react-app"
     ],
@@ -17,10 +18,7 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "jest"
-    ],
+    "plugins": ["react", "jest", "sonarjs"],
     "settings": {
         "react": {
             "version": "latest"
