@@ -36,7 +36,6 @@
         "eslint-plugin-sonarjs": "^0.11.0",
         "express": "^4.17.1",
         "nodemailer": "^6.7.0",
-        "react-scripts": "^4.0.3",
         "sanitize-html": "^2.6.0"
     },
     "devDependencies": {

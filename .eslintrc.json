@@ -8,6 +8,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:sonarjs/recommended",
+        "plugin:jest/recommended",
         "plugin:react/recommended",
         "react-app"
     ],
