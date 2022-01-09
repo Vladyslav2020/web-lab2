@@ -8,13 +8,14 @@
         "start-server": "node index",
         "start-client": "cd client && npm run start",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint \"**/*.js\" --ignore-path .eslintignore",
-        "lint:fix": "eslint \"**/*.js\" --fix --ignore-path .eslintignore",
-        "format": "prettier --check . --ignore-path ./.prettierignore",
-        "format:fix": "prettier --write . --ignore-path ./.prettierignore",
-        "stylelint": "stylelint \"**/*.css\" --ignore-path .eslintignore",
-        "stylelint:fix": "stylelint \"**/*.css\" --fix --ignore-path .eslintignore",
-        "prepare": "husky install"
+        "lint": "eslint \"**/*.js\" --ignore-path .gitignore",
+        "lint:fix": "eslint \"**/*.js\" --fix --ignore-path .gitignore",
+        "format": "prettier --check . --ignore-path .gitignore",
+        "format:fix": "prettier --write . --ignore-path .gitignore",
+        "stylelint": "stylelint \"**/*.css\" --ignore-path .gitignore",
+        "stylelint:fix": "stylelint \"**/*.css\" --fix --ignore-path .gitignore",
+        "prepare": "husky install",
+        "heroku-postbuild": "cd client && npm install && npm run build"
     },
     "repository": {
         "type": "git",
@@ -30,18 +31,17 @@
         "config": "^3.3.6",
         "cors": "^2.8.5",
         "dotenv": "^10.0.0",
-        "eslint-plugin-jest": "^25.3.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react-app": "^6.2.2",
         "eslint-plugin-sonarjs": "^0.11.0",
-        "express": "^4.17.1",
         "jest": "^27.4.3",
         "nodemailer": "^6.7.0",
         "sanitize-html": "^2.6.0"
     },
     "devDependencies": {
         "concurrently": "^6.4.0",
-        "eslint": "^7.11.0",
+        "eslint": "^7.28.0",
+        "eslint-plugin-jest": "^25.3.0",
         "husky": "^7.0.4",
         "lint-staged": "^11.2.6",
         "prettier": "^2.4.1",
@@ -50,6 +50,6 @@
         "stylelint-config-standard": "^23.0.0"
     },
     "engines": {
-        "node": "14.x"
+        "node": "16.x"
     }
 }

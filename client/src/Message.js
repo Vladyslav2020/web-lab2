@@ -20,7 +20,7 @@ const Message = ({ type, message, hideMessage }) => {
                     className="btn-close"
                     data-bs-dismiss="alert"
                     aria-label="Close"
-                    onClick={() => hideMessage()}
+                    onClick={hideMessage}
                 ></button>
             </div>
         </CSSTransition>

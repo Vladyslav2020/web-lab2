@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHttp } from './useHttp';
-import { Config } from './Config';
 
-let needToAddEventListeners = true;
 let needToCheckValidation = false;
 
 const SendEmailForm = ({
@@ -23,33 +21,31 @@ const SendEmailForm = ({
     useEffect(() => {
         if (loading) showLoader();
         else hideLoader();
-    }, [loading]);
+    }, [loading, showLoader, hideLoader]);
 
     const changeState = (key, newValue) => {
         setState(prevState => ({ ...prevState, [key]: newValue }));
     };
-    useEffect(() => {
-        if (needToAddEventListeners) {
-            needToAddEventListeners = false;
-        }
-    }, []);
 
     useEffect(() => {
         if (!needToCheckValidation) {
             return;
         }
         setIsValid(form.current.checkValidity());
-    });
+    }, [state]);
 
     const sendEmail = async event => {
         event.preventDefault();
         needToCheckValidation = true;
         if (!form.current.checkValidity()) {
             form.current.classList.add('was-validated');
+            setIsValid(false);
             return;
         }
         try {
-            const response = await request(Config.url, 'POST', { ...state });
+            const response = await request(process.env.REACT_APP_URL, 'POST', {
+                ...state,
+            });
             showMessage({ message: response.message, type: 'success' });
             setTimeout(hideMessage, 3000);
         } catch (err) {

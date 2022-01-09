@@ -14,11 +14,10 @@ export const useHttp = () => {
                 const response = await fetch(url, { method, body, headers });
                 const data = await response.json();
                 if (response.status === 401) {
-                    console.log('No authorization');
                     throw new Error('No authorization');
                 }
                 if (!response.ok) {
-                    console.log('Something went wrong: ' + data.message);
+                    throw new Error('Something went wrong: ' + data.message);
                 }
                 setLoading(false);
                 return data;

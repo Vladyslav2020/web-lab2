@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 5000;
 
 const maxCountRequestsPerTime = 2;
 const time = 12000;
-const requestContainer = {};
-let timer;
+let requestContainer = {};
+let timer = null;
 
 const returnResponse = (res, status, obj) => {
     res.writeHead(status, {
@@ -24,7 +24,7 @@ const returnStaticFile = (res, filePath) => {
     fs.readFile(filePath, function (err, data) {
         if (err) {
             res.writeHead(404);
-            res.end(JSON.stringify(err));
+            res.end('404: File not found');
             return;
         }
         res.writeHead(200);
@@ -39,10 +39,9 @@ const handleRequest = async (req, res, body) => {
             req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
         if (!timer) {
             timer = setTimeout(() => {
-                Object.values(requestContainer).forEach(
-                    item => (item.count = 0),
-                );
+                requestContainer = {};
                 clearInterval(timer);
+                timer = null;
             }, time);
         }
         if (!requestContainer[ip]) {
@@ -76,20 +75,15 @@ const handleRequest = async (req, res, body) => {
     }
 };
 
-const server = http.createServer((req, res) => {
-    let body = '';
-    req.on('data', chunk => {
-        body += chunk.toString();
-    });
-
-    req.on('end', () => {
+const server = http.createServer(async (req, res) => {
+    for await (const body of req) {
         if (req.url === '/api/send-mail' && req.method === 'POST') {
             handleRequest(req, res, body);
         } else if (req.method !== 'GET') {
             res.statusCode = 400;
             res.end();
         }
-    });
+    }
     if (req.method === 'GET') {
         if (req.url === '/') {
             returnStaticFile(
