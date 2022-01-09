@@ -8,9 +8,8 @@
         "@testing-library/user-event": "^12.1.10",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "react-scripts": "4.0.3",
-        "react-transition-group": "^4.4.2",
-        "web-vitals": "^1.0.1"
+        "react-scripts": "5.0.0",
+        "react-transition-group": "^4.4.2"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -29,7 +28,7 @@
         ]
     },
     "devDependencies": {
-        "@babel/eslint-parser": "^7.16.3",
+        "@babel/eslint-parser": "^7.16.5",
         "@nodeart/eslint-plugin": "^1.4.0"
     }
 }
