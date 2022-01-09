@@ -8,7 +8,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:sonarjs/recommended",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -17,12 +18,18 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["jest", "sonarjs"],
+    "plugins": ["react", "jest", "sonarjs"],
+    "settings": {
+        "react": {
+            "version": "latest"
+        }
+    },
     "rules": {
         "comma-dangle": "off",
         "handle-callback-err": "off",
         "consistent-return": "off",
         "sonarjs/no-duplicate-string": "off",
+        "react/prop-types": "off",
         "no-var": "warn",
         "semi": "warn",
         "indent": "warn",
