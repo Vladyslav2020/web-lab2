@@ -25,10 +25,10 @@ class MailService {
     }
 
     async sendMail() {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             MailService.transporter.sendMail(
                 this.mailOptions,
-                function (error, info) {
+                function (error) {
                     if (error) {
                         console.log('Error: ', error);
                         return resolve({

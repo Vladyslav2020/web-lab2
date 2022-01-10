@@ -39,6 +39,7 @@
         "sanitize-html": "^2.6.0"
     },
     "devDependencies": {
+        "@babel/eslint-parser": "^7.16.5",
         "concurrently": "^6.4.0",
         "eslint": "^8.6.0",
         "eslint-plugin-jest": "^25.3.0",
